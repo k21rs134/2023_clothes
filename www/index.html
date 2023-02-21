@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <script>
+        function shoot() {
+            const option = {
+                destinationType: Camera.DestinationType.DATA_URL, // URLに変換
+                correctOrientation: true
+            };
+
+            // カメラを起動
+            navigator.camera.getPicture(onSuccess, onError, option);
+
+            // 成功時に呼び出されるコールバック関数
+            function onSuccess(data) {
+                document.querySelector("#photo").src = "data:image/jpeg;base64," + data;
+            }
+
+            // 失敗時に呼び出されるコールバック関数
+            function onError(message) {
+                alert("Error:" + message);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <img id="photo" height="400">
+    <button id="shoot-button" onclick="shoot()">写真を撮る</button>
+</body>
+
+</html>
